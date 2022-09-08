@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 
 
 function Torneios() {
+    const url = "http://localhost:5001"
 
     const [ranking, setRanking] = useState([]);
     const [torneios, setTorneios] = useState([]);
@@ -12,25 +13,25 @@ function Torneios() {
 
 
     const fetchRanking = async (etapa) => {
-        let resposta = await axios.get(`http://localhost:5000/ranking/${edicao}/${etapa}`);
+        let resposta = await axios.get(`${url}/ranking/list/${edicao}/${etapa}`);
         setRanking(resposta.data);
-        console.log(resposta.data);
+
     }
 
-    async function fetchEtapa(value){
-            setEdicao(value);
-        try{
-            let resposta = await axios.get(`http://localhost:5000/etapas/${value}`);
+    async function fetchEtapa(value) {
+        setEdicao(value);
+        try {
+            let resposta = await axios.get(`${url}/etapas/${value}`);
             setEtapas(resposta.data);
             setDestivado("")
-        }catch (e) {
+        } catch (e) {
             console.log(e)
         }
     }
 
     useEffect(() => {
         const fetchTorneios = async () => {
-            let resposta = await axios.get("http://localhost:5000/torneios");
+            let resposta = await axios.get(`${url}/torneios`);
             setTorneios(resposta.data);
         }
 
@@ -39,8 +40,8 @@ function Torneios() {
     }, []);
 
     function RenderTable() {
-        if(ranking.length > 0 ){
-            return(
+        if (ranking.length > 0) {
+            return (
                 <table className="table table-zebra w-1/2 ml-auto mr-auto mt-4">
                     <thead>
                     <tr>
@@ -53,9 +54,9 @@ function Torneios() {
                     </tr>
                     </thead>
                     <tbody>
-                    {ranking.map(item => {
+                    {ranking.map((item, index) => {
                         return (
-                            <tr key={item.id}>
+                            <tr key={index}>
                                 <td>{item.player}</td>
                                 <td>{item.buy_inn}</td>
                                 <td>{item.qtd_rebuy}</td>
@@ -73,34 +74,27 @@ function Torneios() {
 
     return (
         <div>
-           <div className="ml-4 mt-4">
-               <select className="select select-accent " onChange={async ({...e}) => {
-                   fetchEtapa(e.target.value);
-               }}>
-                   <option disabled selected>Selecione a Edição</option>
-                   {torneios.map(torneio => {
-                       return <option key={torneio.id} >{torneio.torneio}</option>
-                   })}
-               </select>
-
-               <select className="select ml-4" disabled={destivado} onClick={({...e})=>{
-                   fetchRanking(e.target.value)
-               }}>
-                     <option disabled selected>Selecione a Etapa</option>
-                        {etapas.map(etapa => {
-                            return <option key={etapa.id} >{etapa.etapa}</option>
-                        })}
-               </select>
-           </div>
-
-
+            <div className="ml-4 mt-4">
+                <select className="select select-accent " onChange={async ({...e}) => {
+                    fetchEtapa(e.target.value);
+                }}>
+                    <option disabled selected>Selecione a Edição</option>
+                    {torneios.map((torneio, index) => {
+                        return <option key={index}>{torneio.torneio}</option>
+                    })}
+                </select>
+                <select className="select ml-4" disabled={destivado} onChange={({...e}) => {
+                    fetchRanking(e.target.value)
+                }}>
+                    <option disabled selected>Selecione a Etapa</option>
+                    {etapas.map((etapa, index) => {
+                        return <option key={index}>{etapa.etapa}</option>
+                    })}
+                </select>
+            </div>
             <div className="overflow-x-auto">
                 <RenderTable/>
             </div>
-
-
-
-
         </div>
     );
 }

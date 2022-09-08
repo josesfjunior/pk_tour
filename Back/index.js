@@ -5,7 +5,7 @@ const Torneios = require("./Routes/torneios");
 const Etapas = require("./Routes/etapas");
 const cors = require("cors")
 const app = express();
-const port = 5000;
+const port = 5001;
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());

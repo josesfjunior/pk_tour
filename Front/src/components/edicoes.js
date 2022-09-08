@@ -3,10 +3,11 @@ import axios from "axios";
 
 
 function Edicoes() {
+    const url = "http://localhost:5001"
     const [torneiros, setTorneiros] = useState([]);
     const fetchTorneiros = async () => {
         try {
-            const response = await axios.get("http://localhost:5000/torneios/listAll");
+            const response = await axios.get( `${url}/torneios/listAll`);
             setTorneiros(response.data);
         } catch (e) {
             console.log(e);

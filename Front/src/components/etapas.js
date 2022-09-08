@@ -3,10 +3,11 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 
 function Etapas() {
+    const url = "http://localhost:5001"
     let {id} = useParams();
     const [etapa, setEtapa] = useState([]);
     const fetchEtapas = async () => {
-        const response = await axios.get(`http://localhost:5000/etapas/list/${id}`);
+        const response = await axios.get(`${url}/etapas/list/${id}`);
         setEtapa(response.data);
         console.log(response.data);
     }
