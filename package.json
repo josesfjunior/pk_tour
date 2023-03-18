@@ -1,0 +1,21 @@
+{
+  "name": "pk_tour",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start-front": "cd Front/ && npm start",
+    "start-back": "cd Back/ && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josesfjunior/pk_tour.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/josesfjunior/pk_tour/issues"
+  },
+  "homepage": "https://github.com/josesfjunior/pk_tour#readme"
+}

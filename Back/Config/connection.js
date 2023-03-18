@@ -1,11 +1,22 @@
 const { Pool, Client } = require("pg");
+require('dotenv/config');
 
+// brate
+// const credentials = {
+//     user: process.env.DB_USER,
+//     host: process.env.DB_HOST,
+//     database: process.env.DB_DATABASE,
+//     password: process.env.DB_PASSWORD,
+//     port: process.env.DB_PORT,
+// };
+
+// local
 const credentials = {
-    user: "tournament",
-    host: "10.1.82.88",
-    database: "pktour",
-    password: "senha@123",
-    port: 5432,
+    user: process.env.DB_LOCAL_USER,
+    host: process.env.DB_LOCAL_HOST,
+    database: process.env.DB_LOCAL_DATABASE,
+    password: process.env.DB_LOCAL_PASSWORD,
+    port: process.env.DB_PORT,
 };
 
 const pool = new Pool(credentials);

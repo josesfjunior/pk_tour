@@ -6,7 +6,7 @@ const pool = require('../Config/connection');
 router.get('/:edicao', (req, res) => {
     const edicao = req.params.edicao;
     console.log(edicao);
-    pool.query('select etapa from pkapp_etapas a, pkapp_torneios b where a.id_torneio_id = b.id and b.torneio = $1 ', [edicao] ,(error, results) => {
+    pool.query('select a.id, etapa from pkapp_etapas a, pkapp_torneios b where a.id_torneio_id = b.id and b.torneio = $1 ', [edicao] ,(error, results) => {
         if (error) {
             throw error;
         }

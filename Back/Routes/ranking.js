@@ -31,5 +31,18 @@ router.get('/list/:torneio', (req, res) => {
     }
 )
 
+router.get('/geral/:etapa', (req, res) => {
+    const etapa = req.params.etapa
+    pool.query('select r.pontuacao, r.id_etapa_id, t.torneio, p.player, e.data  \n' +
+        'from pkapp_ranking r, pkapp_players p, pkapp_torneios t, pkapp_etapas e\n' +
+        'where p.id = r.id_player_id and t.id = r.id_torneio_id and e.id= r.id_etapa_id and t.torneio = $1 \n' +
+        'order by t.torneio', [etapa] ,(error, results) => {
+        if (error) {
+            throw error;
+        }
+        res.status(200).json(results.rows);
+    })
+})
+
 
 module.exports = router;
